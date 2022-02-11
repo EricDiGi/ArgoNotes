@@ -1,3 +1,10 @@
-com\example\argonotesapp\HelloController.class
-com\example\argonotesapp\HelloApplication.class
+com\example\UserApp\Objects\Account.class
 module-info.class
+com\example\UserApp\Objects\Credentials.class
+com\example\UserApp\Objects\UnHashableException.class
+com\example\UserApp\Objects\Cluster.class
+com\service\T2A\Server.class
+com\example\UserApp\UserApp.class
+com\service\JSON\JSON.class
+com\example\UserApp\WelcomeController.class
+com\example\UserApp\Objects\Note.class
