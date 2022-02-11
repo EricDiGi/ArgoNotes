@@ -1,0 +1,6 @@
+MySQL root password: APIadmin
+
+User name: rootuser
+host: <All Hosts(%)>
+Role: DB Admin
+Pword: APIadmin
