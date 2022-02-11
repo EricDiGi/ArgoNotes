@@ -6,6 +6,7 @@ public class Cluster {
     private UUID cluster_id;
     private String cluster_name;
 
+    public Cluster(){}
 
     public UUID getCluster_id() {
         return cluster_id;

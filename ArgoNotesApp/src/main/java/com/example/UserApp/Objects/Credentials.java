@@ -9,6 +9,8 @@ public class Credentials {
     private String u_name;
     private String hashed;
 
+    public Credentials(){}
+
     private void hash(String word) throws UnHashableException {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-1");

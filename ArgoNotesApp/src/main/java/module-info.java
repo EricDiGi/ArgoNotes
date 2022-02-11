@@ -9,9 +9,11 @@ module com.example.UserApp {
     requires eu.hansolo.tilesfx;
     requires com.fasterxml.jackson.databind;
     requires junit;
+    requires java.sql;
 
     opens com.example.UserApp to javafx.fxml;
     exports com.example.UserApp;
     exports com.service.JSON;
     exports com.example.UserApp.Objects;
+    exports com.service.T2A;
 }
