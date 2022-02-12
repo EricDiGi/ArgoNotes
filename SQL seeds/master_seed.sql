@@ -20,13 +20,6 @@ create table if not exists accounts (
     user_pass varchar(37) not null
 );
 
--- (uuid of hashed password, hashed password)
-drop table if exists account_creds;
-create table account_creds (
-	user_pass varchar(37) default (uuid()) not null primary key,
-    hashed text not null
-);
-
 -- Table to hold all user data
 drop table if exists users;
 create table if not exists users (
@@ -37,6 +30,12 @@ create table if not exists users (
     dob date,
     email varchar(128) not null,
     role_id integer not null -- role of user in software
+);
+
+create table if not exists user_state (
+	uid varchar(37) not null primary key,
+    last_active timestamp not null,
+    is_active bool not null
 );
 
 -- demo insert (sets user to be born yesterday)

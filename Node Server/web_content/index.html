@@ -6,11 +6,25 @@
     </head>
     <body>
         <h1>This is a cool Webpage!</h1>
-        <img src="dino1.png" aria-label="Obtained from: dinosandcomics.com"/>
-        <p>
-            <b>Link to Image:</b><a href="dino1.png">Yay Dinosaurs!</a>
-            <br/>
-            <b>Link to Dead Page:</b><a href="non_exist.htm">Aw Dead-End...</a>
-        </p>
+        <form action="/signup" method="post" id="newUser">
+            <label>Username</label>
+            <input type="text" id="alias" name="alias">
+            <label>Password</label>
+            <input type="password" id="pword" name="pword">
+            <label>First Name</label>
+            <input tpye="text" id="first_name" name="first_name">
+            <label>Last Name</label>
+            <input type="text" id="last_name" name="last_name">
+            <label>Birth Date:</label>
+            <input type="date" id="dob" name="dob">
+            <label>Email</label>
+            <input type="text" id="email" name="email">
+            <lable>Role</lable>
+            <select id="role" name="role">
+                <option value="0">Teacher</option>
+                <option value="1">Student</option>
+            </select>
+            <button type="submit">Sign Up</button>
+        </form>
     </body>
 </html>
