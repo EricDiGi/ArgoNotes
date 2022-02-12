@@ -4,3 +4,9 @@ User name: rootuser
 host: <All Hosts(%)>
 Role: DB Admin
 Pword: APIadmin
+
+service account:
+service
+service
+
+jdbc:mysql://localhost:3306/argonotes?user=root&password=APIadmin
