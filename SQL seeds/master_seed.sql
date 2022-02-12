@@ -1,6 +1,8 @@
 drop schema if exists argonotes;
 create schema if not exists argonotes;
 
+set SQL_SAFE_UPDATES = 0;
+
 -- use this schema
 use argonotes;
 
