@@ -15,5 +15,4 @@ module com.example.UserApp {
     exports com.example.UserApp;
     exports com.service.JSON;
     exports com.example.UserApp.Objects;
-    exports com.service.T2A;
 }

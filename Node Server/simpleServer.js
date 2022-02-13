@@ -46,12 +46,30 @@ app.get("/interactive",(req,res)=>{
     });
 });
 
-app.get("/login", (req,res)=>{
-    res.send("<html><body><h3>This is a login page</h3></body></html>")
+app.post("/login", (req,res)=>{
+    var q = "select (\'"+req.body.pword+"\'=user_pass) as auth from accounts where user_acc in  (select uid from users where alias=\'"+req.body.alias+"\' or email=\'"+req.body.alias+"\')";
+    conn.query(q,(err, result, fields)=>{
+        if (err) console.log(err);
+        else{
+            if(result.length == 0) res.redirect('index.html');
+            else if(result.length > 1) res.redirect("index1.html");
+            else{
+                // HOW???
+                var datagram = {
+                    session_id: "", //Security measure
+                    account: {},//User account details
+                    clusters: [], //Asocciated Clusters
+                    notes: [] //User's notes
+                };
+                res.send(datagram);
+
+            }
+        }
+    });
 });
 
 app.post("/signup", (req,res)=>{
-    var q = ("select * from users where email=\'"+req.body.email+"\';");
+    var q = ("select * from users where email=\'"+req.body.email+"\' or alias=\'"+req.body.alias+"\';");
     conn.query(
         q,
         function(err,result,fields){
