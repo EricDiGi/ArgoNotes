@@ -141,6 +141,26 @@ app.post("/signup", (req,res)=>{
     );
 });
 
+app.get("/notesAPI", (req,res)=>{
+
+    res.writeHead(200, {
+        'Content-Type':'text/event-stream',
+        'Cache-Control':'no-cache',
+        'Connection':'keep-alive'
+    });
+
+    var interval = setInterval(function(){
+        console.log(req.query);
+        res.write("meh");
+    }, 3000);
+
+    res.on("close", ()=>{
+        clearInterval(interval);
+        res.end();
+    })
+
+});
+
 
 app.get('/',(req,res)=>{
     res.redirect("index.html");
