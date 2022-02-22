@@ -6,15 +6,15 @@ const crypto = require('crypto');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const res = require('express/lib/response');
+const { fail } = require('assert');
 
 //MySQL Connection
-var conn = mysql.createConnection({
+const conn = mysql.createConnection({
     host: "localhost",
     user: "service",
     password: "service_engine",
     database: "argonotes"
 });
-
 conn.connect(function(err){
     if (err) throw err;
     console.log("Connected to MySQL");
@@ -49,48 +49,38 @@ app.use(cookieParser());
 //Make Workflows
 
 
-app.get("/interactive",(req,res)=>{
-    var qs = req.query;
-    var cont = req.body;
-    var mode = qs.mode;
-    console.log("User requested mode: %s\nContent incoming:\n%s", mode, cont);
-    
-    conn.query(
-        "select * from users limit 1",
-        function (err, result, fields) {
-            if (err) throw err;
-            res.send(result);
-    });
-});
-
-app.post("/login", (req,res)=>{
+app.post("/login", async (req,res)=>{
     var session_info;
 
-    var q = "select (\'"+req.body.pword+"\'=user_pass) as auth from accounts where user_acc in  (select uid from users where alias=\'"+req.body.alias+"\' or email=\'"+req.body.alias+"\')";
-    conn.query(q,(err, result, fields)=>{
+    var q = "select (\'"+req.body.pword+"\'=user_pass) as auth, user_acc from accounts where user_acc in  (select uid from users where alias=\'"+req.body.alias+"\' or email=\'"+req.body.alias+"\')";
+    conn.query(q,async (err, result, fields)=>{
         if (err) console.log(err);
         else{
             if(result.length == 0) res.redirect('index.html');
             else if(result.length > 1) res.redirect("index1.html");
             else{
+                console.log(result[0].user_acc);
                 session_info = req.session;
                 session_info.userActive = true;
-                session_info.visits = 1;
+                session_info.user = result[0].user_acc;
                 console.log(req.session);
-                console.log("User is active: "+ session_info.userActive + " Visits: " + session_info.visits);
-                // HOW???
-                var datagram = {
-                    session_id: "", //Security measure
-                    account: {},//User account details
-                    clusters: [], //Asocciated Clusters
-                    notes: [] //User's notes
-                };
-                res.redirect("/index");
-                //res.send(req.session);
 
-            }
+                var datagram;
+                var q = "select note_id from notes where user_id=\'"+result[0].user_acc+"\'";
+                const dgram = await new Promise((success,fail)=>{
+                    conn.query(q, async function(err,result){
+                        if (err) fail(err);
+                        else{
+                            const datagram = result;
+                            success(datagram);
+                        }
+                    });
+                });
+                datagram = JSON.stringify(dgram);
+                res.send(datagram);
         }
-    });
+    }
+});
 });
 
 
@@ -112,7 +102,6 @@ app.post("/signup", (req,res)=>{
             if(err){console.log(err)}
             else{            
                 if (result.length > 0) {
-                    //res.send({response_code: 111, response_def: "User Exists", auth_id: result.uid})
                     return res.redirect('/index1.html');
                 } else {
                     var q = "insert into users (alias, first_name, last_name, dob, email, role_id) values (\'"+req.body.alias+"\',\'"+req.body.first_name+"\',\'"+req.body.last_name+"\',\'"+req.body.dob+"\',\'"+req.body.email+"\',"+parseInt(req.body.role)+");";
@@ -127,6 +116,7 @@ app.post("/signup", (req,res)=>{
                                         conn.query("select uid from users where email=\'"+req.body.email+"\';",(err,result,fields)=>{
                                             if(err) throw err;
                                             else{
+                                                //Do useful things here
                                                 res.send({response_code: 110, response_def: "User Created", auth_id: result[0].uid});
                                             }
                                         });
@@ -147,10 +137,10 @@ app.get('/',(req,res)=>{
 });
 
 app.get('/index', (req,res)=>{
-    var session_info = req.session;
-    session_info.visits++;
+    //var session_info = req.session;
+    //session_info.visits++;
     res.sendFile("web_content/index.html",{root:__dirname});
-    console.log(session_info);
+    //console.log(session_info);
 });
 
 //Get Server moving
