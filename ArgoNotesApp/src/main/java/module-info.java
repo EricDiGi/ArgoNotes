@@ -10,6 +10,8 @@ module com.example.UserApp {
     requires com.fasterxml.jackson.databind;
     requires junit;
     requires java.sql;
+    requires org.apache.httpcomponents.httpclient;
+    requires org.apache.httpcomponents.httpcore;
 
     opens com.example.UserApp to javafx.fxml;
     exports com.example.UserApp;

@@ -30,8 +30,14 @@ public class EntryForms {
         try {
             cred.setUsername(u_name.getText());
             cred.setPassword(p_word.getText());
-        }catch(UnHashableException e){
-            warnUser.setText("Could not hash your password!");
+            if(cred.auth()){
+                System.out.println("This is an authorized user!");
+                //homeRedirect(cred.getPacket());
+            }else {
+                warnUser.setText("Invalid Password");
+            }
+        }catch(UnHashableException | Exception e){
+            warnUser.setText("Invalid Username or Password!");
         }
     }
 
