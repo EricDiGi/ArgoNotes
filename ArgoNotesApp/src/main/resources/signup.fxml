@@ -36,12 +36,7 @@
     </HBox>
     <HBox>
         <Label text="Role:"/>
-            <MenuButton fx:id="role" text="Role">
-                <items>
-                    <MenuItem text="Teacher"/>
-                    <MenuItem text="Student"/>
-                </items>
-            </MenuButton>
+        <ComboBox fx:id="role"/>
     </HBox>
     <HBox alignment="CENTER" spacing="20.0">
         <Button text="Login" onAction="#loginRedirect"/>
