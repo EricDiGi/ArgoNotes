@@ -15,6 +15,7 @@ const conn = mysql.createConnection({
     password: "service_engine",
     database: "argonotes"
 });
+
 conn.connect(function(err){
     if (err) throw err;
     console.log("Connected to MySQL");
@@ -27,7 +28,8 @@ conn.connect(function(err){
 const app = express();
 
 //Session middle-ware
-const oneDay = 1000*60*60*24;
+const oneDay = 1000*60*60*24; //milliseconds
+
 app.use(sessions({
     secret: crypto.randomUUID(),
     saveUninitialized: false,
@@ -156,10 +158,7 @@ app.get('/',(req,res)=>{
 });
 
 app.get('/index', (req,res)=>{
-    //var session_info = req.session;
-    //session_info.visits++;
     res.sendFile("web_content/index.html",{root:__dirname});
-    //console.log(session_info);
 });
 
 //Get Server moving
