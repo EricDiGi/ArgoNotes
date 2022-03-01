@@ -28,6 +28,9 @@ public class Credentials {
     private void hash(String word) throws UnHashableException {
         this.hashed = word;
         return;
+
+        //Do salting
+
         /*try {
             MessageDigest md = MessageDigest.getInstance("SHA-1");
             byte[] h = md.digest(word.getBytes(StandardCharsets.UTF_8));
@@ -64,8 +67,8 @@ public class Credentials {
         String entity = EntityUtils.toString(response.getEntity());
         try {
             JSON<LoginResponse> json = new JSON<>(entity, LoginResponse.class);
-            LoginResponse lr = json.fromJSON();
-            if(!lr.getUser().isEmpty()){
+            this.LR = json.fromJSON();
+            if(!LR.getUser().isEmpty()){
                 return true;
             }
         } catch(Exception e){
