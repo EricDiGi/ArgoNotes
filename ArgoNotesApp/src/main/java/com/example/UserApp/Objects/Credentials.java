@@ -67,8 +67,8 @@ public class Credentials {
         String entity = EntityUtils.toString(response.getEntity());
         try {
             JSON<LoginResponse> json = new JSON<>(entity, LoginResponse.class);
-            LoginResponse lr = json.fromJSON();
-            if(!lr.getUser().isEmpty()){
+            this.LR = json.fromJSON();
+            if(!LR.getUser().isEmpty()){
                 return true;
             }
         } catch(Exception e){

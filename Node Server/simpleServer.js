@@ -75,28 +75,10 @@ app.post("/login", async (req,res)=>{
                     session_info.userActive = true;
                     session_info.user = result[0].user_acc;
                     //console.log(req.session);
-
                     var datagram = {
-                        user: session_info.user,
+                        user: req.session.user,
                         notes: null
                     };
-                    var q = "select note_id from notes where user_id=\'"+result[0].user_acc+"\'";
-                    const dgram = await new Promise((success,fail)=>{
-                        conn.query(q, async function(err,result){
-                            if (err) fail(err);
-                            else{
-                                const datagram = result;
-                                success(datagram);
-                            }
-                        });
-                    });
-                    var notes = [];
-                    for(var note in dgram){
-                        console.log(dgram[note]);
-                        notes.push(dgram[note].note_id);
-                    }
-                    datagram.notes = notes;
-                    console.log(datagram);
                     res.send(datagram);
                 }
         }
@@ -156,6 +138,31 @@ app.post("/signup", (req,res)=>{
     );
 });
 
+app.get('/mynotes', async (req,res)=>{
+    var session_info;
+    var datagram = {
+        user: req.session.user,
+        notes: null
+    };
+    var q = "select note_id from notes where user_id=\'"+req.session.user+"\'";
+    const dgram = await new Promise((success,fail)=>{
+        conn.query(q, async function(err,result){
+            if (err) fail(err);
+            else{
+                const datagram = result;
+                success(datagram);
+            }
+        });
+    });
+    var notes = [];
+    for(var note in dgram){
+        console.log(dgram[note]);
+        notes.push(dgram[note].note_id);
+    }
+    datagram.notes = notes;
+    console.log(datagram);
+    res.send(datagram);
+});
 
 app.get('/',(req,res)=>{
     res.redirect("index.html");

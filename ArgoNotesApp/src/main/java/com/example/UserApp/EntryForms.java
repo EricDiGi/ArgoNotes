@@ -57,11 +57,12 @@ public class EntryForms implements Initializable {
             cred.setPassword(p_word.getText());
             if(cred.auth()){
                 System.out.println("This is an authorized user!");
-                //homeRedirect(cred.getPacket());
+                mainRedirect(cred.getPacket().getUser());
             }else {
                 warnUser.setText("Invalid Password");
             }
-        }catch(UnHashableException | Exception e){
+        }catch(Exception | UnHashableException e){
+            e.printStackTrace();
             warnUser.setText("Invalid Username or Password!");
         }
     }
@@ -82,7 +83,7 @@ public class EntryForms implements Initializable {
             u.setUid(UUID.fromString(auth_uuid));
 
             System.out.println("You have now signed up");
-            //homeRedirect(u);
+            mainRedirect(auth_uuid);
         } catch (UnHashableException | Exception e){
             this.warnUser.setText("That's a funky password, try again...");
             return;
@@ -117,6 +118,27 @@ public class EntryForms implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    public void mainRedirect(String u){
+        try {
+            Stage stage;
+            Parent root;
+
+            FXMLLoader dump = new FXMLLoader(getClass().getClassLoader().getResource("NotesView.fxml"));
+            root = dump.load();
+
+            NotesViewCon nv = dump.getController();
+            nv.setU(u);
+
+            stage = (Stage) u_name.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
 
