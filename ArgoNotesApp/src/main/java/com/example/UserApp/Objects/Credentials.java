@@ -28,6 +28,9 @@ public class Credentials {
     private void hash(String word) throws UnHashableException {
         this.hashed = word;
         return;
+
+        //Do salting
+
         /*try {
             MessageDigest md = MessageDigest.getInstance("SHA-1");
             byte[] h = md.digest(word.getBytes(StandardCharsets.UTF_8));

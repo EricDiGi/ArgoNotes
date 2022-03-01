@@ -108,6 +108,10 @@ app.post("/login", async (req,res)=>{
 // on logout destroy session
 app.get('/logout', (req, res)=>{
     //destroy session in db also
+    q = "update user_state set is_active=0 where uid=\'"+req.session.user+"\'";
+    conn.query(q, (err, result)=>{
+        if(err) console.log(err);
+    });
     session_info = req.session;
     session_info.userActive = false;
     req.session.destroy((err)=>console.log(err));
