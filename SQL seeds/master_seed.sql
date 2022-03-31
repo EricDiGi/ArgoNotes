@@ -40,10 +40,6 @@ create table if not exists user_state (
     is_active bool not null
 );
 
--- demo insert (sets user to be born yesterday)
-insert into users(alias, first_name, last_name, dob,email, role_id)
-values ('DevOperator','Fname','Lname',date(current_date()-1),'some.person@email.com', 0);
-
 -- Table to hold role associations (minimal)
 drop table if exists roles;
 create table if not exists roles (

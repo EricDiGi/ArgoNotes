@@ -5,7 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -21,9 +22,13 @@ import java.util.ResourceBundle;
 public class NotesViewCon implements Initializable {
     private String u_id;
     @FXML
-    private AnchorPane anchor;
+    private VBox anchor;
+    @FXML
+    private TilePane tiles;
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle){}
+    public void initialize(URL url, ResourceBundle resourceBundle){
+        tiles.getChildren().add(new NoteCard("Untitled", "This is some preview text so awesome! Please look at me"));
+    }
 
     public void setU(String u) throws IOException {
         this.u_id = u;
@@ -52,5 +57,10 @@ public class NotesViewCon implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    public void makeNote(){
+
     }
 }
