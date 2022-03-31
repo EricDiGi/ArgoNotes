@@ -6,12 +6,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.image.ImageView?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.UserApp.NotesViewCon"
             prefHeight="400.0" prefWidth="600.0" fx:id="anchor">
+    <HBox fx:id="MenuBar">
+        <ImageView fx:id="logo" preserveRatio="true"></ImageView>
+        <!-- Do more operations here -->
+    </HBox>
     <TilePane fx:id="tiles">
-
+        <!-- For note cards -->
     </TilePane>
     <Button text="Logout" onAction="#logoutUser"/>
 </AnchorPane>
