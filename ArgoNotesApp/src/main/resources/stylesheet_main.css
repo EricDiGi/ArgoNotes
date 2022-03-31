@@ -1,0 +1,29 @@
+#MenuBar{
+    -fx-background-color: linear-gradient(to bottom, #517295, #485E74);
+    height: 50;
+}
+
+#ntCrd{
+    -fx-font-size: 14;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 3, 0, 0, 0);
+    -fx-background-radius: 10;
+    -fx-font-family: "Georgia";
+}
+
+#ntCrd:hover{
+    -fx-background-color: #BED2EA;
+}
+#ntCrd:hover .seperator{
+    -fx-background-color: black;
+    -fx-border-color: null ;
+}
+#ntCrd #title{
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+#NewNote{
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 3, 0, 0, 0);
+    -fx-background-radius: 10;
+}
