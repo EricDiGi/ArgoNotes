@@ -5,9 +5,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.UserApp.NotesViewCon"
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.UserApp.NotesViewCon">
+<VBox
       prefHeight="400.0" prefWidth="600.0"
       fx:id="anchor"
       style="-fx-background-color: #D8E4F2"
@@ -37,3 +38,4 @@
         <!-- For note cards -->
     </TilePane>
 </VBox>
+</StackPane>

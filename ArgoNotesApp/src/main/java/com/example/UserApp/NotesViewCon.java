@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -60,7 +61,7 @@ public class NotesViewCon implements Initializable {
     }
 
     @FXML
-    public void makeNote(){
-
+    public void makeNote() throws IOException {
+        ((StackPane) anchor.getParent()).getChildren().add(FXMLLoader.load(getClass().getClassLoader().getResource("note-edit.fxml")));
     }
 }

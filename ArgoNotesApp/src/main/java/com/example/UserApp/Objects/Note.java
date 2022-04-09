@@ -3,7 +3,7 @@ package com.example.UserApp.Objects;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Note {
+public class Note{
 
     private String title;
     private UUID colab_id;

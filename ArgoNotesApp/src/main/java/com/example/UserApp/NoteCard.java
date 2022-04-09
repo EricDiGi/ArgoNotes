@@ -54,5 +54,4 @@ public class NoteCard extends VBox {
         return preview;
     }
 
-
 }

@@ -5,9 +5,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.UserApp.NotesViewCon"
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.UserApp.NotesViewCon">
+<VBox
       prefHeight="400.0" prefWidth="600.0"
       fx:id="anchor"
       style="-fx-background-color: #D8E4F2"
@@ -26,7 +27,8 @@
         <VBox fx:id="NewNote"
               maxWidth="100"
               maxHeight="100"
-              alignment="CENTER">
+              alignment="CENTER"
+              onMouseClicked="#makeNote">
             <HBox alignment="CENTER">
                 <ImageView fx:id="add_note" preserveRatio="true" fitHeight="100" fitWidth="100">
                     <Image url="plus.png"></Image>
@@ -36,3 +38,4 @@
         <!-- For note cards -->
     </TilePane>
 </VBox>
+</StackPane>
