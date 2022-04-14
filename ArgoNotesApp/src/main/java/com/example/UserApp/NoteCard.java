@@ -94,6 +94,23 @@ public class NoteCard extends VBox {
         this.getChildren().addAll(this.title_, this.sep, this.preview_);
     }
 
+    public void setTitle(String s){
+        this.title_.setText(s);
+        this.parent_note.setTitle(s);
+    }
+
+    public void setContent(String s){
+        this.preview_.setText(this.limitPreview(s));
+        this.parent_note.setContent(s);
+    }
+
+    public String getTitle(){
+        return this.parent_note.getTitle();
+    }
+
+    public String getContent(){
+        return this.parent_note.getContent();
+    }
 
     private String limitTitle(String title) {
         if(title.length() > TITLE_LENGTH)
@@ -111,8 +128,12 @@ public class NoteCard extends VBox {
         FXMLLoader page = new FXMLLoader(getClass().getClassLoader().getResource("note-edit.fxml"));
         Parent p_page = page.load();
         NoteEdit ne = page.getController();
-        ne.stitch(this.parent_note);
+        ne.stitch(this);
 
         ((StackPane) this.getParent().getParent().getParent()).getChildren().add(p_page);
+    }
+
+    public void remove(){
+        ((TilePane)this.getParent()).getChildren().remove(this);
     }
 }
