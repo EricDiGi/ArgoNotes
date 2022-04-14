@@ -26,7 +26,8 @@
         <VBox fx:id="NewNote"
               maxWidth="100"
               maxHeight="100"
-              alignment="CENTER">
+              alignment="CENTER"
+              onMouseClicked="#makeNote">
             <HBox alignment="CENTER">
                 <ImageView fx:id="add_note" preserveRatio="true" fitHeight="100" fitWidth="100">
                     <Image url="plus.png"></Image>
