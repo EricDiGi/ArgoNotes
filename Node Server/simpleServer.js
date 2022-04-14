@@ -58,7 +58,7 @@ app.post("/login", async (req,res)=>{
     conn.query(q,async (err, result, fields)=>{
         if (err) console.log(err);
         else{
-            console.log(result);
+            //console.log(result);
             if(result.length == 0){
                 res.response_code = 307;
                 res.send("USER NOT FOUND");
@@ -70,7 +70,7 @@ app.post("/login", async (req,res)=>{
                     res.send("NOT AUTH");
                 }
                 else {
-                    console.log(result[0].user_acc);
+                    //console.log(result[0].user_acc);
                     session_info = req.session;
                     session_info.userActive = true;
                     session_info.user = result[0].user_acc;
@@ -138,13 +138,13 @@ app.post("/signup", (req,res)=>{
     );
 });
 
-app.get('/mynotes', async (req,res)=>{
-    var session_info;
+app.post('/mynotes',  async (req,res)=>{
+    //console.log(req.body.uid);
     var datagram = {
-        user: req.session.user,
+        user: req.body.uid,
         notes: null
     };
-    var q = "select note_id from notes where user_id=\'"+req.session.user+"\'";
+    var q = "select note_id from notes where user_id=\'"+req.body.uid+"\'";
     const dgram = await new Promise((success,fail)=>{
         conn.query(q, async function(err,result){
             if (err) fail(err);
@@ -156,10 +156,29 @@ app.get('/mynotes', async (req,res)=>{
     });
     var notes = [];
     for(var note in dgram){
-        console.log(dgram[note]);
+        //console.log(dgram[note]);
         notes.push(dgram[note].note_id);
     }
     datagram.notes = notes;
+    console.log(datagram);
+    res.send(datagram);
+    // res.send("****");
+});
+
+app.post('/collectNote', async (req,res)=>{
+    var datagram = {};
+    console.log("USER: " + req.body.uid + "\t\t NOTE: " + req.body.nid);
+    var q = "select * from notes where user_id=\'"+req.body.uid+"\' and note_id=\'"+req.body.nid+"\'";
+    const dgram = await new Promise((success,fail)=>{
+        conn.query(q, async function(err,result){
+            if (err) fail(err);
+            else{
+                const datagram = result;
+                success(datagram);
+            }
+        });
+    });
+    datagram = JSON.parse(JSON.stringify(dgram[0]));
     console.log(datagram);
     res.send(datagram);
 });
