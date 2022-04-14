@@ -21,9 +21,10 @@
     <HBox fx:id="MenuBar" minHeight="35" maxHeight="50">
         <!-- <ImageView fx:id="logo" preserveRatio="true"></ImageView> -->
         <!-- Do more operations here -->
-        <Button text="Logout" onAction="#logoutUser" alignment="BASELINE_RIGHT"/>
+        <HBox HBox.hgrow="ALWAYS"></HBox>
+        <Button text="Logout" fx:id = "LogoutButton" prefHeight="49" textFill="white" onAction="#logoutUser" alignment="BASELINE_RIGHT"/>
     </HBox>
-    <TilePane fx:id="tiles" prefTileWidth="175">
+    <TilePane fx:id="tiles" prefTileWidth="175" hgap="20" vgap="20" alignment="TOP_CENTER">
         <VBox fx:id="NewNote"
               maxWidth="100"
               maxHeight="100"

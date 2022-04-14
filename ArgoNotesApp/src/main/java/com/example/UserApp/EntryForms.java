@@ -130,7 +130,7 @@ public class EntryForms implements Initializable {
             root = dump.load();
 
             NotesViewCon nv = dump.getController();
-            nv.setU(u);
+            nv.setAndCollect(u);
 
             stage = (Stage) u_name.getScene().getWindow();
             Scene scene = new Scene(root);

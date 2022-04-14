@@ -21,15 +21,18 @@
     </stylesheets>
     <StackPane
             fx:id="EditStackPane"
+            onMouseClicked="#closeEdit"
     >
         <VBox fx:id="EditBox" maxWidth="${EditStackPane.width*0.6}" maxHeight="${EditStackPane.height*0.9}">
-            <HBox fx:id="Options"></HBox>
+            <HBox fx:id="Options">
+
+            </HBox>
             <HBox fx:id="TitleBox">
-                <Label>Title Edit</Label>
+                <Label fx:id="title">Title Edit</Label>
             </HBox>
             <Separator/>
             <Pane fx:id="ContentBox">
-                <Label>Content Edit</Label>
+                <Label fx:id="content">Content Edit</Label>
             </Pane>
         </VBox>
     </StackPane>

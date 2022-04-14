@@ -3,6 +3,16 @@
     height: 50;
 }
 
+#LogoutButton{
+    -fx-background-color: linear-gradient(to bottom, #517295, #485E74);
+    prefHeight: 49;
+    -fx-font-weight: bold;
+}
+
+#tiles{
+    -fx-padding: 10 30 10 30;
+}
+
 #ntCrd{
     -fx-font-size: 14;
     -fx-background-color: white;

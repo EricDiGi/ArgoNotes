@@ -1,6 +1,20 @@
 package com.example.UserApp.Objects;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Note{
@@ -13,6 +27,7 @@ public class Note{
     //private ArrayList<Comment> comments;
     private Boolean is_collab;
     private UUID note_id;
+    private UUID uid;
 
 
     public Note(){
@@ -20,6 +35,30 @@ public class Note{
         this.is_collab = Boolean.FALSE;
         this.title = "Untitled";
         this.updated_at = LocalDateTime.now();
+        this.content = "";
+        //this.comments = new ArrayList<Comment>();
+    }
+
+    public Note(String uid, String nid) throws IOException {
+        this.note_id = UUID.fromString(nid);
+        this.uid = UUID.fromString(uid);
+
+        HttpPost post = new HttpPost("http://localhost:8080/collectNote");
+        List<NameValuePair> urlParams = new ArrayList<>();
+        urlParams.add(new BasicNameValuePair("uid",this.uid.toString()));
+        urlParams.add(new BasicNameValuePair("nid",this.note_id.toString()));
+        post.setEntity(new UrlEncodedFormEntity(urlParams));
+
+        CloseableHttpClient httpCli = HttpClients.createDefault();
+        CloseableHttpResponse response = httpCli.execute(post);
+        String note_raw = EntityUtils.toString(response.getEntity());
+        JSONObject note = new JSONObject(note_raw);
+
+        this.is_collab = (Integer)note.get("is_collab") == 1;
+        this.title = (String)note.get("title");
+        String t = ((String)note.get("updated_at")).replace("T", " ").replace("Z","");
+        this.updated_at = Timestamp.valueOf(t).toLocalDateTime();
+        this.content = (String)note.get("contents");
         //this.comments = new ArrayList<Comment>();
     }
 

@@ -12,6 +12,7 @@ module com.example.UserApp {
     requires java.sql;
     requires org.apache.httpcomponents.httpclient;
     requires org.apache.httpcomponents.httpcore;
+    requires org.json;
 
     opens com.example.UserApp to javafx.fxml;
     exports com.example.UserApp;
