@@ -183,6 +183,17 @@ app.post('/collectNote', async (req,res)=>{
     res.send(datagram);
 });
 
+app.post('/saveNote', (req,res)=>{
+    var q = `insert into argonotes.notes (note_id, cluster_id, user_id, title, contents, updated_at, is_collab) values (\'${req.body.nid}\', \'${req.body.cid}\',\'${req.body.uid}\',\'${req.body.title}\',\'${req.body.content}\',current_time(),${req.body.is_collab}) on duplicate key update title = \'${req.body.title}\', contents=\'${req.body.content}\', updated_at=current_time()`;
+    conn.query(q, async function(err,result){
+        if (err) fail(err);
+        else{
+            console.log("note saved");
+            res.send("note saved");
+        }
+    });
+});
+
 app.get('/',(req,res)=>{
     res.redirect("index.html");
 });

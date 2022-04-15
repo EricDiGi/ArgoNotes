@@ -52,13 +52,13 @@ public class NoteEdit implements Initializable {
         content.setText(n.getContent());
     }
     public void closeEdit(){
-        System.out.println(content.getText().length());
         if(content.getText().length() == 0 && (title.getText().equals("Untitled") || title.getText().length() == 0)){
             this.N.remove();
         }
-//        else{
-//            //Do Save ops here
-//        }
+        else{
+            this.N.persist();
+            //Do Save ops here
+        }
         ((StackPane) NoteStackParent.getParent()).getChildren().remove(NoteStackParent);
     }
 }

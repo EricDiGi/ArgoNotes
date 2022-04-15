@@ -136,4 +136,12 @@ public class NoteCard extends VBox {
     public void remove(){
         ((TilePane)this.getParent()).getChildren().remove(this);
     }
+
+    public void persist() {
+        try {
+            this.parent_note.persist();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
