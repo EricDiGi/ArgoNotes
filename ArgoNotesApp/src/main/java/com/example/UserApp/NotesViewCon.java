@@ -36,9 +36,6 @@ public class NotesViewCon implements Initializable {
     @Override
 
     public void initialize(URL url, ResourceBundle resourceBundle){
-        Note n = new Note();
-        NoteCard nc = new NoteCard(n);
-        tiles.getChildren().add(nc);
     }
 
     public void setAndCollect(String u) throws IOException{
@@ -52,6 +49,7 @@ public class NotesViewCon implements Initializable {
         CloseableHttpResponse response = httpCli.execute(post);
         JSONObject note_ids = new JSONObject(EntityUtils.toString(response.getEntity()));
         JSONArray jarr = note_ids.getJSONArray("notes");
+        httpCli.close();
         for(Object id: jarr) {
             Note n = new Note(this.u_id, (String)id);
             tiles.getChildren().add(new NoteCard(n));
@@ -62,7 +60,7 @@ public class NotesViewCon implements Initializable {
         HttpPost post = new HttpPost("http://localhost:8080/logout");
         CloseableHttpClient httpCli = HttpClients.createDefault();
         CloseableHttpResponse response = httpCli.execute(post);
-
+        httpCli.close();
         loginRedirect();
     }
 
@@ -81,7 +79,7 @@ public class NotesViewCon implements Initializable {
 
     @FXML
     public void makeNote() throws IOException {
-        Note n = new Note();
+        Note n = new Note(this.u_id);
         NoteCard nc = new NoteCard(n);
         tiles.getChildren().add(nc);
         nc.editNote();

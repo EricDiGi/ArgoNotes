@@ -73,7 +73,7 @@ create table if not exists cluster_assoc (
 
 drop table if exists notes;
 create table if not exists notes (
-	note_id varchar(37) default (uuid()) not null primary key,
+	note_id varchar(37) default (uuid()) not null unique primary key,
 	cluster_id varchar(37) not null,
     collab_id varchar(37),
     user_id varchar(37) not null,
