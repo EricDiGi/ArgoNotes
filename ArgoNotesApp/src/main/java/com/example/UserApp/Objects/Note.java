@@ -30,7 +30,8 @@ public class Note{
     private UUID uid;
 
 
-    public Note(){
+    public Note(String uid){
+        this.uid = UUID.fromString(uid);
         this.note_id = UUID.randomUUID();
         this.is_collab = Boolean.FALSE;
         this.title = "Untitled";
@@ -55,10 +56,10 @@ public class Note{
         JSONObject note = new JSONObject(note_raw);
 
         this.is_collab = (Integer)note.get("is_collab") == 1;
-        this.title = (String)note.get("title");
+        this.title = this.unescape((String)note.get("title"));
         String t = ((String)note.get("updated_at")).replace("T", " ").replace("Z","");
         this.updated_at = Timestamp.valueOf(t).toLocalDateTime();
-        this.content = (String)note.get("contents");
+        this.content = this.unescape((String)note.get("contents"));
         //this.comments = new ArrayList<Comment>();
     }
 
@@ -116,5 +117,38 @@ public class Note{
 
     public void setNote_id(UUID note_id) {
         this.note_id = note_id;
+    }
+
+    private String escape(String in){
+        in = in.replaceAll("'", "\\\\'");
+        in = in.replaceAll("\"","\\\\\"");
+        return in;
+    }
+
+    private String unescape(String in){
+        in = in.replaceAll("\\\\'", "'");
+        in = in.replaceAll("\\\\\"","\"");
+        return in;
+    }
+
+    public void persist() throws IOException{
+        System.out.println("Gets to here 1");
+        HttpPost post = new HttpPost("http://localhost:8080/saveNote");
+        List<NameValuePair> urlParams = new ArrayList<>();
+        urlParams.add(new BasicNameValuePair("uid",this.uid.toString()));
+        urlParams.add(new BasicNameValuePair("nid",this.note_id.toString()));
+        UUID clust = this.cluster_id == null ? UUID.randomUUID() : this.cluster_id;
+        urlParams.add(new BasicNameValuePair("cid", clust.toString()));
+        urlParams.add(new BasicNameValuePair("title", this.escape(this.title)));
+        urlParams.add(new BasicNameValuePair("content",this.escape(this.content)));
+        urlParams.add(new BasicNameValuePair("is_collab", Integer.toString(this.is_collab?1:0)));
+        post.setEntity(new UrlEncodedFormEntity(urlParams));
+
+        CloseableHttpClient httpCli = HttpClients.createDefault();
+        CloseableHttpResponse response = httpCli.execute(post);
+
+        EntityUtils.toString(response.getEntity());
+        //httpCli.close();
+        System.out.println("Should not be hanging");
     }
 }
