@@ -32,7 +32,7 @@ public class Credentials {
     private void hash(String word) throws UnHashableException {
 
         //Do salting
-        String saltedString = this.u_name + word;
+        String saltedString = "salt" + word;
 
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-1");
