@@ -53,7 +53,6 @@ app.use(cookieParser());
 
 app.post("/login", async (req,res)=>{
     var session_info;
-
     var q = "select (\'"+req.body.pword+"\'=user_pass) as auth, user_acc from accounts where user_acc in  (select uid from users where alias=\'"+req.body.alias+"\' or email=\'"+req.body.alias+"\')";
     conn.query(q,async (err, result, fields)=>{
         if (err) console.log(err);
@@ -70,13 +69,19 @@ app.post("/login", async (req,res)=>{
                     res.send("NOT AUTH");
                 }
                 else {
+                    
+                    q = "update user_state set is_active=1 where uid=(select uid from users where alias=\'"+req.body.alias+"\')";
+                    conn.query(q, (err, result)=>{
+                        if(err) console.log(err);
+                        else console.log("Login Update success" + req.body.user);
+                    });
                     //console.log(result[0].user_acc);
                     session_info = req.session;
                     session_info.userActive = true;
                     session_info.user = result[0].user_acc;
                     //console.log(req.session);
                     var datagram = {
-                        user: req.session.user,
+                        user: session_info.user,
                         notes: null
                     };
                     res.send(datagram);
@@ -90,9 +95,11 @@ app.post("/login", async (req,res)=>{
 // on logout destroy session
 app.post('/logout', (req, res)=>{
     //destroy session in db also
-    q = "update user_state set is_active=0 where uid=\'"+req.session.user+"\'";
+    console.log(req.body);
+    q = "update user_state set is_active=0, last_active=current_date() where uid=\'"+req.body.user+"\'";
     conn.query(q, (err, result)=>{
         if(err) console.log(err);
+        else console.log("Logout success" + req.body.user);
     });
     session_info = req.session;
     session_info.userActive = false;
