@@ -25,6 +25,11 @@ public class Credentials {
         this.u_name = u_name;
     }
 
+    private void hash(String word){
+        this.hashed = word;
+        return;
+    }
+/*
     private void hash(String word) throws UnHashableException {
         this.hashed = word;
         return;
@@ -44,8 +49,8 @@ public class Credentials {
         catch(NoSuchAlgorithmException e) {
             System.out.println(e.toString());
             throw new UnHashableException();
-        }*/
-    }
+        }
+    }*/
 
     public void setUsername(String u_name){
         this.u_name = u_name;
