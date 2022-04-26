@@ -19,7 +19,8 @@ create table if not exists devices (
 drop table if exists accounts;
 create table if not exists accounts (
 	user_acc varchar(37) not null,
-    user_pass varchar(37) not null
+    user_pass varchar(37) not null,
+    user_salt int not null
 );
 
 -- Table to hold all user data
