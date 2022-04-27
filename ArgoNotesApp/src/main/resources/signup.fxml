@@ -17,10 +17,10 @@
         <Label text="Username:"/><TextField fx:id="u_name"/>
     </HBox>
     <HBox>
-        <Label text="Password:"/><TextField fx:id="p_word"/>
+        <Label text="Password:"/><PasswordField fx:id="p_word"/>
     </HBox>
     <HBox>
-        <Label text="Confirm Password:"/><TextField fx:id="cp_word"/>
+        <Label text="Confirm Password:"/><PasswordField fx:id="cp_word"/>
     </HBox>
     <HBox>
         <Label text="First Name:"/><TextField fx:id="fname"/>

@@ -10,6 +10,10 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +25,8 @@ public class Credentials {
     public Credentials(){}
 
     public Credentials(String u_name, String p_word) throws UnHashableException {
-        this.hash(p_word);
         this.u_name = u_name;
+        this.hash(p_word);
     }
 
     private void hash(String word){
@@ -31,17 +35,16 @@ public class Credentials {
     }
 /*
     private void hash(String word) throws UnHashableException {
-        this.hashed = word;
-        return;
 
         //Do salting
+        String saltedString = "salt" + word;
 
-        /*try {
+        try {
             MessageDigest md = MessageDigest.getInstance("SHA-1");
-            byte[] h = md.digest(word.getBytes(StandardCharsets.UTF_8));
+            byte[] h = md.digest(saltedString.getBytes(StandardCharsets.UTF_8));
             BigInteger no = new BigInteger(1,h);
             String hex = no.toString(16);
-            while(hex.length() < 32){
+            while(hex.length() < 40){
                 hex = "0" + hex;
             }
             this.hashed = hex;
@@ -50,6 +53,10 @@ public class Credentials {
             System.out.println(e.toString());
             throw new UnHashableException();
         }
+    }
+
+        return;
+
     }*/
 
     public void setUsername(String u_name){
