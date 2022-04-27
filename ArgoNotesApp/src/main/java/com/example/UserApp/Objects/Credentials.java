@@ -29,11 +29,11 @@ public class Credentials {
         this.hash(p_word);
     }
 
-    private void hash(String word){
+   /* private void hash(String word){
         this.hashed = word;
         return;
-    }
-/*
+    }*/
+
     private void hash(String word) throws UnHashableException {
 
         //Do salting
@@ -54,10 +54,6 @@ public class Credentials {
             throw new UnHashableException();
         }
     }
-
-        return;
-
-    }*/
 
     public void setUsername(String u_name){
         this.u_name = u_name;

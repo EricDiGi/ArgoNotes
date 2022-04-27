@@ -163,7 +163,7 @@ app.post('/logout', (req, res)=>{
 app.post("/signup", (req,res)=>{
 
     //var q = ("select * from users where email=\'"+req.body.email+"\' or alias=\'"+req.body.alias+"\';");
-    let q = sqlstring.format("SELECT * FROM ?? WHERE ??=? or ??=?",["users","email",req.body.email,"alias",req.body.alias]);
+    let q = sqlstring.format("SELECT * FROM ?? WHERE ??=? or ??=?",["argonotes.users","email",req.body.email,"alias",req.body.alias]);
 
     conn.query(
         q,
@@ -173,8 +173,8 @@ app.post("/signup", (req,res)=>{
                 if (result.length > 0) {
                     return res.redirect('/index1.html');
                 } else {
-                    //var q = "insert into users (alias, first_name, last_name, dob, email, role_id) values (\'"+req.body.alias+"\',\'"+req.body.first_name+"\',\'"+req.body.last_name+"\',\'"+req.body.dob+"\',\'"+req.body.email+"\',"+parseInt(req.body.role)+");";
-                    let q = sqlstring.format("INSERT INTO ?? (??, ??, ??, ??, ??, ??) VALUES (?, ?, ?, ?, ?, ?)",["users", "alias", "first_name", "last_name", "dob", "email", "role_id", req.body.alias, req.body.first_name, req.body.last_name, req.body.dob, req.body.email, parseInt(req.body.role)]);
+                    var q = "insert into users (alias, first_name, last_name, dob, email, role_id) values (\'"+req.body.alias+"\',\'"+req.body.first_name+"\',\'"+req.body.last_name+"\',\'"+req.body.dob+"\',\'"+req.body.email+"\',"+parseInt(req.body.role)+");";
+                    //let q = sqlstring.format("INSERT INTO users (alias, first_name, last_name, dob, email, role_id) VALUES (?, ?, ?, ?, ?, ?)",[ req.body.alias, req.body.first_name, req.body.last_name, req.body.dob, req.body.email, parseInt(req.body.role)]);
 
                     conn.query(
                         q,

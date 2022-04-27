@@ -20,7 +20,7 @@ drop table if exists accounts;
 create table if not exists accounts (
 	user_acc varchar(37) not null,
     user_pass varchar(40) not null,
-    user_salt integer not null
+    user_salt integer -- not null
 );
 
 -- Table to hold all user data
