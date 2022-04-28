@@ -52,7 +52,7 @@ public class NoteEdit implements Initializable {
         content.setText(n.getContent());
     }
     public void closeEdit(){
-        if(content.getText().length() == 0 && (title.getText().equals("Untitled") || title.getText().length() == 0)){
+        if(content.getText().length() == 0 && (title.getText().contains("Untitled") || title.getText().length() == 0)){
             this.N.remove();
         }
         else{

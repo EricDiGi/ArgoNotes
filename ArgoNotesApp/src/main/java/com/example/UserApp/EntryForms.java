@@ -134,6 +134,7 @@ public class EntryForms implements Initializable {
 
             stage = (Stage) u_name.getScene().getWindow();
             Scene scene = new Scene(root);
+            nv.setStage(stage);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e){
