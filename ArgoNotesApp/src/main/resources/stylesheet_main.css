@@ -3,6 +3,16 @@
     height: 50;
 }
 
+#LogoutButton{
+    -fx-background-color: linear-gradient(to bottom, #517295, #485E74);
+    prefHeight: 49;
+    -fx-font-weight: bold;
+}
+
+#tiles{
+    -fx-padding: 10 30 10 30;
+}
+
 #ntCrd{
     -fx-font-size: 14;
     -fx-background-color: white;
@@ -26,4 +36,23 @@
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 3, 0, 0, 0);
     -fx-background-radius: 10;
+}
+
+#EditStackPane{
+    -fx-background-color: rgba(127,127,127,0.7);
+}
+
+#EditBox{
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-background-radius: 10;
+    -fx-font-family: Georgia;
+}
+
+#TitleBox{
+    -fx-font-size: 25;
+}
+
+#ContentBox{
+    -fx-font-size: 18;
 }

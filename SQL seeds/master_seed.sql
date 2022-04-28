@@ -19,7 +19,8 @@ create table if not exists devices (
 drop table if exists accounts;
 create table if not exists accounts (
 	user_acc varchar(37) not null,
-    user_pass varchar(37) not null
+    user_pass varchar(40) not null,
+    user_salt integer -- not null
 );
 
 -- Table to hold all user data
@@ -73,7 +74,7 @@ create table if not exists cluster_assoc (
 
 drop table if exists notes;
 create table if not exists notes (
-	note_id varchar(37) default (uuid()) not null primary key,
+	note_id varchar(37) default (uuid()) not null unique primary key,
 	cluster_id varchar(37) not null,
     collab_id varchar(37),
     user_id varchar(37) not null,

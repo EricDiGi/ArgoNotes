@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Screen?>
+<?import java.net.URL?>
+<?import javafx.scene.layout.Pane?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.UserApp.NoteEdit"
+           fx:id="NoteStackParent"
+            >
+    <fx:define>
+        <Screen fx:factory="getPrimary" fx:id="screen"/>
+    </fx:define>
+    <stylesheets>
+        <URL value="@stylesheet_main.css"/>
+    </stylesheets>
+    <StackPane
+            fx:id="EditStackPane"
+            onMouseClicked="#closeEdit"
+    >
+        <VBox fx:id="EditBox" maxWidth="${EditStackPane.width*0.6}" maxHeight="${EditStackPane.height*0.9}">
+            <HBox fx:id="Options">
+
+            </HBox>
+            <HBox fx:id="TitleBox" >
+                <TextField fx:id="title" >Title Edit</TextField>
+            </HBox>
+            <Separator/>
+            <Pane fx:id="ContentBox">
+                <TextArea fx:id="content">Content Edit</TextArea>
+            </Pane>
+        </VBox>
+    </StackPane>
+</StackPane>
