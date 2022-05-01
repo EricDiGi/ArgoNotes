@@ -132,7 +132,6 @@ public class Note{
     }
 
     public void persist() throws IOException{
-        System.out.println("Gets to here 1");
         HttpPost post = new HttpPost("http://localhost:8080/saveNote");
         List<NameValuePair> urlParams = new ArrayList<>();
         urlParams.add(new BasicNameValuePair("uid",this.uid.toString()));
@@ -149,6 +148,5 @@ public class Note{
 
         EntityUtils.toString(response.getEntity());
         //httpCli.close();
-        System.out.println("Should not be hanging");
     }
 }
